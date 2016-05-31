@@ -1,0 +1,18 @@
+<?php $_basketInfo = $this->_getLastOrderInfo(); ?>
+
+<?php if (!empty($_basketInfo)) : ?>
+    <script type="text/javascript">
+        // for sale
+        var _trboq = _trboq || [];
+        _trboq.push([
+            'sale',
+            {
+                order_id: <?php echo $_basketInfo['order_id']; ?>,
+                value: <?php echo $_basketInfo['value']; ?>,
+                currency: "<?php echo $_basketInfo['currency']; ?>",
+                coupon_code: "<?php echo $_basketInfo['coupon_code']; ?>",
+                products: <?php echo json_encode($_basketInfo['products']); ?>
+            }
+        ]);
+    </script>
+<?php endif; ?>

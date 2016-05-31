@@ -1,0 +1,30 @@
+<?php $_currentBasketInfo = $this->_getCurrentBasketInfo(); ?>
+<?php $_pageType = $this->_getPageType(); ?>
+<?php $_userJsName = $this->getGeneralConfig('js_name'); ?>
+<script type="text/javascript">
+    (function() {var c=document.createElement("script");c.type="text/javascript";
+            c.src=document.location.protocol+"//static.trbo.com/plugin/<?php echo $_userJsName ;?>.js";
+        var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(c,b);})();
+
+    <?php if (!empty($_currentBasketInfo)) : ?>
+        var _trboq = _trboq || [];
+        _trboq.push([
+            'currentBasket',
+            {
+                value: <?php echo $_currentBasketInfo['value']; ?>,
+                product_ids: [
+                    <?php echo json_encode($_currentBasketInfo['product_ids']); ?>
+                ]
+            }
+        ]);
+    <?php endif; ?>
+    <?php if ($_pageType && $_pageType != null) : ?>
+        _trboq.push([
+            'page'
+            {
+                type: '<?php echo $_pageType; ?>'
+            }
+        ]);
+    <?php endif; ?>
+</script>
+

@@ -1,0 +1,23 @@
+<?php $_basketInfo = $this->_getBasketInfo(); ?>
+<?php if (!empty($_basketInfo)) : ?>
+    <script type="text/javascript">
+        // for basket
+        var _trboq = _trboq || [];
+        _trboq.push([
+            'basket',
+            {
+                value: <?php echo $_basketInfo['value']; ?>,
+                currency: "<?php echo $_basketInfo['currency']; ?>",
+                products: [
+                    <?php echo json_encode($_basketInfo['products']); ?>
+                ]
+            }
+        ]);
+        _trboq.push([
+            'page'
+            {
+                type: 'basket'
+            }
+        ]);
+    </script>
+<?php endif; ?>

@@ -1,0 +1,7 @@
+# app/code
+app/code/local/Macopedia/Trbo            app/code/local/Macopedia/Trbo
+# app/etc
+app/etc/modules/Macopedia_Trbo.xml            app/etc/modules/Macopedia_Trbo.xml
+# app/design
+app/design/frontend/base/default/template/macopedia/trbo      app/design/frontend/base/default/template/macopedia/trbo
+app/design/frontend/base/default/layout/macopedia/trbo.xml            app/design/frontend/base/default/layout/macopedia/trbo.xml

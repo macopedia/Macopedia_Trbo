@@ -1,0 +1,16 @@
+<?php $productInfo = $this->_getProductInfo(); ?>
+<?php if (!empty($productInfo)) : ?>
+	<script type="text/javascript">
+		// for product
+		var _trboq = _trboq || [];
+		_trboq.push([
+			'productView',
+			{
+				products: [
+					<?php echo json_encode($productInfo); ?>
+				]
+			}
+		]);
+	</script>
+<?php endif; ?>
+
