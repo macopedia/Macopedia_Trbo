@@ -124,6 +124,9 @@ class Macopedia_Trbo_Block_Trbo extends Mage_Core_Block_Template
     protected function _getProductInfo()
     {
         $product = Mage::registry('current_product');
+        if (is_null($product) && $productId = $this->getRequest()->getParam('currentProductId')) {
+            $product = Mage::getModel('catalog/product')->load($productId);
+        }
         $attributeCode = $this->getAttributeCodeForCatalog();
         if ($attributeCode === false) {
             $productId = $product->getId();
@@ -134,18 +137,31 @@ class Macopedia_Trbo_Block_Trbo extends Mage_Core_Block_Template
         return array(
             'product_id' => $productId,
             'name' => $product->getName(),
-            'price' => number_format($product->getFinalPrice(), 2, '.', ''),
+            'price' => number_format(Mage::helper('core')->currency($product->getFinalPrice(), false, false), 2, '.', ''),
         );
     }
 
     protected function _getPageType()
     {
-        switch (Mage::app()->getRequest()->getModuleName()) {
+        if ($fullActionName = $this->getRequest()->getParam('fullActionName')) {
+            $fullActionNameArray = explode('_', $fullActionName);
+            $moduleName = $fullActionNameArray[0];
+            $controllerName = $fullActionNameArray[1];
+        } else {
+            $moduleName = Mage::app()->getRequest()->getModuleName();
+            $controllerName = Mage::app()->getRequest()->getControllerName();
+        }
+
+        if ($fullActionName && $fullActionName == 'cms_index_index') {
+            return 'home';
+        }
+
+        switch ($moduleName) {
             case 'onestepcheckout' :
                 return 'checkout';
         }
 
-        switch (Mage::app()->getRequest()->getControllerName()) {
+        switch ($controllerName) {
             case 'category' :
                 return 'category';
             case 'page' :
