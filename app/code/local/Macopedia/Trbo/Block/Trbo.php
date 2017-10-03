@@ -147,12 +147,14 @@ class Macopedia_Trbo_Block_Trbo extends Mage_Core_Block_Template
             $fullActionNameArray = explode('_', $fullActionName);
             $moduleName = $fullActionNameArray[0];
             $controllerName = $fullActionNameArray[1];
+            $actionName = null;
         } else {
             $moduleName = Mage::app()->getRequest()->getModuleName();
             $controllerName = Mage::app()->getRequest()->getControllerName();
+            $actionName = Mage::app()->getRequest()->getControllerName();
         }
 
-        if ($fullActionName && $fullActionName == 'cms_index_index') {
+        if ($moduleName = 'cms' && $controllerName == 'index' && $actionName == 'index') {
             return 'home';
         }
 
